@@ -14,3 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('users', 'UsersController');
+
+Route::resource('books', 'BooksController');
+
+Route::resource('authors', 'AuthorsController');
+
+Route::resource('recommenders', 'RecommendersController');
