@@ -1,26 +1,53 @@
-<!doctype html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
+@section('title', $recommender->name)
 
-<body>
+@section('content')
 
 <h1> {{$recommender->name}} recommends these books </h1>
 
-<ul>
+@foreach($recommender->books as $book)
 
-    <li></li>
-    <li></li>
-    <li></li>
+    <li><a href="{{ url('books', [$book->id]) }}">{{$book->title}}</a> by
+        @php
+            $count=0 ;
+        @endphp
+        @foreach($book->authors as $author)
+            @if($count > 0)
+                and
+            @endif
+            <a href="{{ url('authors', [$author->id]) }}">{{$author->name}}</a>
+            @php
+            $count++ ;
+            @endphp
+        @endforeach
+    </li>
 
-</ul>
+    <br>
 
-</body>
+    {{$book->description}}
 
-</html>
+    <br><br>
+
+    {{$book->title}} also has recommendations from
+
+    @if(count($book->recommenders) > 0 )
+        @php
+            $count=0 ;
+        @endphp
+        @foreach($book->recommenders as $thisrecommender)
+            @if($thisrecommender->name != $recommender->name)
+                @if($count > 0)
+                    ,
+                @endif
+                <a href="{{ url('recommenders', [$thisrecommender->id]) }}">{{ $thisrecommender->name }}</a>
+                @php
+                    $count++ ;
+                @endphp
+            @endif
+        @endforeach
+    @endif
+
+@endforeach
+
+@endsection

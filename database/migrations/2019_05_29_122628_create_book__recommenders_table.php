@@ -28,6 +28,6 @@ class CreateBookRecommendersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('book__recommenders');
+        Schema::dropIfExists('book_recommender');
     }
 }

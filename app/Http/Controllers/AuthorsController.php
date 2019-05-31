@@ -49,7 +49,10 @@ class AuthorsController extends Controller
         //
 
         $author = Author::findOrFail($id);
-        return view('authors.show', compact('author'));
+        //$author->books;
+//        dd($author->books);
+//        $coauthoredbooks = Author::findOrFail($author->books[0]->id)->get();
+        return view('authors.show', compact('author' ));
     }
 
     /**

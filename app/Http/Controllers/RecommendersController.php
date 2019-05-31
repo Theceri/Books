@@ -52,6 +52,7 @@ class RecommendersController extends Controller
     {
         //
         $recommender = Recommender::findOrFail($id);
+//        $coauthored = Book::findOrFail($book->authors[0]->id)->get();
         return view('recommenders.show', compact('recommender'));
     }
 
