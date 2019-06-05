@@ -8,7 +8,7 @@
 
 @foreach($recommender->books as $book)
 
-    <li><a href="{{ url('books', [$book->id]) }}">{{$book->title}}</a> by
+    <li><a href="{{ url('books', [$book->title_slug]) }}">{{$book->title}}</a> by
         @php
             $count=0 ;
         @endphp
@@ -29,9 +29,10 @@
 
     <br><br>
 
-    {{$book->title}} also has recommendations from
+
 
     @if(count($book->recommenders) > 0 )
+        {{$book->title}} also has recommendations from
         @php
             $count=0 ;
         @endphp

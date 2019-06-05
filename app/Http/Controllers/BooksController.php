@@ -48,13 +48,14 @@ class BooksController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
         //
-        $book = Book::findOrFail($id);
+        $book = Book::where('title_slug', $slug)->first();
         //$book->authors;
-//        dd($book->authors);
+//        dd($book);
         $coauthoredbooks = Book::findOrFail($book->authors[0]->id)->get();
+//        dd($coauthoredbooks);
 //      //$book->authors[0]->id means that we look for the book with the particular id ($book), then use the many to many relationship to retrieve the first author (authors[0]) where 'authors' is the relation method in the book function, and then we finally get the id of that first author. The whole statement therefore means we use get() to get all the books of that first author
 //        dd($coauthored);
         return view('books.show', compact('book', 'author', 'recommender', 'coauthoredbooks'));

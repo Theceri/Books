@@ -16,6 +16,7 @@ class CreateRecommendersTable extends Migration
         Schema::create('recommenders', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('name_slug');
             $table->timestamps();
         });
     }

@@ -6,7 +6,7 @@
 
 <h1> {{$book->title}} </h1>
 
-<h2>By: <a href="{{ url('authors', [$book->authors[0]->id]) }}"> {{$book->authors[0]->name}} </a> </h2>
+<h2>By: <a href="{{ url('authors', [$book->authors[0]->slug]) }}"> {{$book->authors[0]->name}} </a> </h2>
 
 <p> {{$book->description}} </p>
 
@@ -14,80 +14,91 @@
 
 <p> {{$book->title}} is recommended by these great people: </p>
 
+@if(count($book->recommenders) > 0)
 <ul>
     @foreach($book->recommenders as $recommender)
 
-                <li><a href="{{ url('recommenders', [$recommender->id]) }}">{{$recommender->name}}</a></li>
+                <li><a href="{{ url('recommenders', [$recommender->name_slug]) }}">{{$recommender->name}}</a></li>
 
     @endforeach
 </ul>
+@endif
+        @foreach($coauthoredbooks as $coauthoredbook)
 
-<h2>More books by {{$book->authors[0]->name}} </h2>
-<ul>
-    @foreach($coauthoredbooks as $coauthoredbook)
-
-        @if($coauthoredbook->title !== $book->title && count($coauthoredbook->authors) == 1)
-
-            <li><a href="{{ url('books', [$coauthoredbook->id]) }}">{{$coauthoredbook->title}}</a></li>
-            @if(count($coauthoredbook->recommenders) > 0)
-                Recommended by
+            @if($coauthoredbook->title !== $book->title && count($coauthoredbook->authors) == 1)
                 @php
-                    $count=0 ;
+                    $count=0;
                 @endphp
-                @foreach($coauthoredbook->recommenders as $thisrecommender)
-                    @if($count > 0)
-                        ,
-                    @endif
-                    <a href="{{ url('recommenders', [$thisrecommender->id]) }}">{{ $thisrecommender->name }}</a>
-                    @php
-                        $count++ ;
-                    @endphp
-                @endforeach
+                @if($count == 0)
+                    <h2> More books by {{ $book->authors[0]->name }} </h2>
+                    <ul>
+                @endif
+
+                <li><a href="{{ url('books', [$coauthoredbook->id]) }}">{{ $coauthoredbook->title }}</a></li>
+                @if(count($coauthoredbook->recommenders) > 0)
+                    Recommended by
+
+                    @foreach($coauthoredbook->recommenders as $thisrecommender)
+                        @if($count > 0)
+                            ,
+                        @endif
+                        <a href="{{ url('recommenders', [$thisrecommender->id]) }}">{{ $thisrecommender->name }}</a>
+                        @php
+                            $count++ ;
+                        @endphp
+                    @endforeach
+                @endif
+                    </ul>
+
             @endif
 
-        @endif
+        @endforeach
 
-    @endforeach
-</ul>
 
-<h2>{{$book->authors[0]->name}} has also co-authored:</h2>
-<ul>
+
+
     @foreach($coauthoredbooks as $coauthoredbook)
 
         @if($coauthoredbook->title !== $book->title && count($coauthoredbook->authors) > 1)
+            @php
+                $count=0;
+            @endphp
+            @if($count == 0)
+                <h2> {{$book->authors[0]->name}} has also co-authored:</h2>
+                <ul>
+            @endif
 
-            <li><a href="{{ url('books', [$coauthoredbook->id]) }}">{{$coauthoredbook->title}}</a></li>
+            <li><a href="{{ url('books', [$coauthoredbook->title_slug]) }}">{{$coauthoredbook->title}}</a></li>
 
-                    @if(count($coauthoredbook->authors) > 0 )
+                @if(count($coauthoredbook->authors) > 0 )
 
-                        co-authored with
-                        @foreach($coauthoredbook->authors as $thisauthor)
-                            @if($thisauthor->name != $book->authors[0]->name)
-                                <a href="{{ url('authors', [$thisauthor->id]) }}">{{ $thisauthor->name }}</a>
-                            @endif
-                        @endforeach
-                    @endif
+                    co-authored with
+                    @foreach($coauthoredbook->authors as $thisauthor)
+                        @if($thisauthor->name != $book->authors[0]->name)
+                            <a href="{{ url('authors', [$thisauthor->id]) }}">{{ $thisauthor->name }}</a>
+                        @endif
+                    @endforeach
+                @endif
 
-                    @if(count($coauthoredbook->recommenders) > 0)
-                        <br>
-                        Recommended by
+                @if(count($coauthoredbook->recommenders) > 0)
+                    <br>
+                    Recommended by
+                    @php
+                        $count=0 ;
+                    @endphp
+                    @foreach($coauthoredbook->recommenders as $thisrecommender)
+                        @if($count > 0)
+                            ,
+                        @endif
+                        <a href="{{ url('recommenders', [$thisrecommender->id]) }}">{{ $thisrecommender->name }}</a>
                         @php
-                            $count=0 ;
+                            $count++ ;
                         @endphp
-                        @foreach($coauthoredbook->recommenders as $thisrecommender)
-                            @if($count > 0)
-                                ,
-                            @endif
-                            <a href="{{ url('recommenders', [$thisrecommender->id]) }}">{{ $thisrecommender->name }}</a>
-                            @php
-                                $count++ ;
-                            @endphp
-                        @endforeach
-                    @endif
-
+                    @endforeach
+                @endif
+                </ul>
             @endif
 
     @endforeach
-</ul>
 
     @endsection

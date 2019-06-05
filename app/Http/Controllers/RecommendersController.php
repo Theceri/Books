@@ -48,11 +48,12 @@ class RecommendersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($name)
     {
         //
-        $recommender = Recommender::findOrFail($id);
+        $recommender = Recommender::where('name_slug', $name)->first();
 //        $coauthored = Book::findOrFail($book->authors[0]->id)->get();
+        // dd($recommender);
         return view('recommenders.show', compact('recommender'));
     }
 

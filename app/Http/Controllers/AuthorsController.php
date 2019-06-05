@@ -44,11 +44,11 @@ class AuthorsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($name)
     {
         //
 
-        $author = Author::findOrFail($id);
+        $author = Author::where('name_slug', $name)->first();
         //$author->books;
 //        dd($author->books);
 //        $coauthoredbooks = Author::findOrFail($author->books[0]->id)->get();
