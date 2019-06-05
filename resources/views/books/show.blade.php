@@ -6,7 +6,7 @@
 
 <h1> {{$book->title}} </h1>
 
-<h2>By: <a href="{{ url('authors', [$book->authors[0]->slug]) }}"> {{$book->authors[0]->name}} </a> </h2>
+<h2>By: <a href="{{ url('authors', [$book->authors[0]->name_slug]) }}"> {{$book->authors[0]->name}} </a> </h2>
 
 <p> {{$book->description}} </p>
 
@@ -34,7 +34,7 @@
                     <ul>
                 @endif
 
-                <li><a href="{{ url('books', [$coauthoredbook->id]) }}">{{ $coauthoredbook->title }}</a></li>
+                <li><a href="{{ url('books', [$coauthoredbook->title_slug]) }}">{{ $coauthoredbook->title }}</a></li>
                 @if(count($coauthoredbook->recommenders) > 0)
                     Recommended by
 
@@ -42,7 +42,7 @@
                         @if($count > 0)
                             ,
                         @endif
-                        <a href="{{ url('recommenders', [$thisrecommender->id]) }}">{{ $thisrecommender->name }}</a>
+                        <a href="{{ url('recommenders', [$thisrecommender->name_slug]) }}">{{ $thisrecommender->name }}</a>
                         @php
                             $count++ ;
                         @endphp
@@ -75,7 +75,7 @@
                     co-authored with
                     @foreach($coauthoredbook->authors as $thisauthor)
                         @if($thisauthor->name != $book->authors[0]->name)
-                            <a href="{{ url('authors', [$thisauthor->id]) }}">{{ $thisauthor->name }}</a>
+                            <a href="{{ url('authors', [$thisauthor->name_slug]) }}">{{ $thisauthor->name }}</a>
                         @endif
                     @endforeach
                 @endif
@@ -90,7 +90,7 @@
                         @if($count > 0)
                             ,
                         @endif
-                        <a href="{{ url('recommenders', [$thisrecommender->id]) }}">{{ $thisrecommender->name }}</a>
+                        <a href="{{ url('recommenders', [$thisrecommender->name_slug]) }}">{{ $thisrecommender->name }}</a>
                         @php
                             $count++ ;
                         @endphp

@@ -16,7 +16,7 @@
             @if($count > 0)
                 and
             @endif
-            <a href="{{ url('authors', [$author->id]) }}">{{$author->name}}</a>
+            <a href="{{ url('authors', [$author->name_slug]) }}">{{$author->name}}</a>
             @php
             $count++ ;
             @endphp
@@ -41,7 +41,7 @@
                 @if($count > 0)
                     ,
                 @endif
-                <a href="{{ url('recommenders', [$thisrecommender->id]) }}">{{ $thisrecommender->name }}</a>
+                <a href="{{ url('recommenders', [$thisrecommender->name_slug]) }}">{{ $thisrecommender->name }}</a>
                 @php
                     $count++ ;
                 @endphp

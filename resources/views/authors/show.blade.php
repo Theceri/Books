@@ -15,11 +15,11 @@
 
         @if(count($book->authors) == 1 )
 
-        <li><a href="{{ url('books', [$book->id]) }}">{{$book->title}}</a>
+        <li><a href="{{ url('books', [$book->title_slug]) }}">{{$book->title}}</a>
             @if(count($book->recommenders) > 0)
                 <br>
                 Recommended by
-                <a href="{{ url('recommenders', [$book->recommenders[0]->id]) }}">{{ $book->recommenders[0]->name }}</a>
+                <a href="{{ url('recommenders', [$book->recommenders[0]->name_slug]) }}">{{ $book->recommenders[0]->name }}</a>
             @endif
         </li>
 
@@ -35,13 +35,13 @@
 
         @if(count($book->authors) > 1 )
 
-            <li><a href="{{ url('books', [$book->id]) }}">{{$book->title}}</a>
+            <li><a href="{{ url('books', [$book->title_slug]) }}">{{$book->title}}</a>
                 @if(count($book->authors) > 0 )
                     <br>
                     co-authored with
                     @foreach($book->authors as $thisauthor)
                         @if($thisauthor->name != $author->name)
-                            <a href="{{ url('authors', [$thisauthor->id]) }}">{{ $thisauthor->name }}</a>
+                            <a href="{{ url('authors', [$thisauthor->name_slug]) }}">{{ $thisauthor->name }}</a>
                         @endif
                     @endforeach
                 @endif
@@ -49,7 +49,7 @@
                 @if(count($book->recommenders) > 0)
                     <br>
                     Recommended by
-                    <a href="{{ url('recommenders', [$book->recommenders[0]->id]) }}">{{ $book->recommenders[0]->name }}</a>
+                    <a href="{{ url('recommenders', [$book->recommenders[0]->name_slug]) }}">{{ $book->recommenders[0]->name }}</a>
                 @endif
             </li>
 
