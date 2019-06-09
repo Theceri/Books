@@ -10,7 +10,7 @@
 
     <li><a href="{{ url('books', [$book->title_slug]) }}">{{$book->title}}</a> by
         @php
-            $count=0 ;
+            $count=0;
         @endphp
         @foreach($book->authors as $author)
             @if($count > 0)
@@ -18,7 +18,7 @@
             @endif
             <a href="{{ url('authors', [$author->name_slug]) }}">{{$author->name}}</a>
             @php
-            $count++ ;
+            $count++;
             @endphp
         @endforeach
     </li>
@@ -32,21 +32,31 @@
 
 
     @if(count($book->recommenders) > 0 )
+
         {{$book->title}} also has recommendations from
+
         @php
             $count=0 ;
         @endphp
+
         @foreach($book->recommenders as $thisrecommender)
+
             @if($thisrecommender->name != $recommender->name)
+
                 @if($count > 0)
                     ,
                 @endif
+
                 <a href="{{ url('recommenders', [$thisrecommender->name_slug]) }}">{{ $thisrecommender->name }}</a>
+
                 @php
-                    $count++ ;
+                    $count++;
                 @endphp
+
             @endif
+
         @endforeach
+
     @endif
 
 @endforeach

@@ -8,6 +8,11 @@
 
 <p>{{$author->description}}</p>
 
+{{--@php--}}
+{{--$hasSingleAuthor = 0;--}}
+
+{{--@endphp--}}
+
 <h2> Books by {{$author->name}} </h2>
 
 <ul>
@@ -47,7 +52,7 @@
                 @endif
 
                 @if(count($book->recommenders) > 0)
-                    <br>
+                    <br> 
                     Recommended by
                     <a href="{{ url('recommenders', [$book->recommenders[0]->name_slug]) }}">{{ $book->recommenders[0]->name }}</a>
                 @endif

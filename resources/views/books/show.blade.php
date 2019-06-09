@@ -15,14 +15,19 @@
 <p> {{$book->title}} is recommended by these great people: </p>
 
 @if(count($book->recommenders) > 0)
+
 <ul>
+
     @foreach($book->recommenders as $recommender)
 
                 <li><a href="{{ url('recommenders', [$recommender->name_slug]) }}">{{$recommender->name}}</a></li>
 
     @endforeach
+
 </ul>
+
 @endif
+
         @foreach($coauthoredbooks as $coauthoredbook)
 
             @if($coauthoredbook->title !== $book->title && count($coauthoredbook->authors) == 1)
