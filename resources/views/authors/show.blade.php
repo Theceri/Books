@@ -12,8 +12,11 @@
 {{--$hasSingleAuthor = 0;--}}
 
 {{--@endphp--}}
-
+ @if($book_count>1)
+ @else
 <h2> Books by {{$author->name}} </h2>
+ @endif
+
 
 <ul>
     @foreach($author->books as $book)

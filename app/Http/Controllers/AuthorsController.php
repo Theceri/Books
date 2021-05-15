@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Author;
+use App\Author_Book;
+use App\Book;
 use Illuminate\Http\Request;
 
 class AuthorsController extends Controller
@@ -49,10 +51,15 @@ class AuthorsController extends Controller
         //
 
         $author = Author::where('name_slug', $name)->first();
+        $book_id = Author_Book::where('author_id',$author['id'])->value('book_id');
+        $book_count = Author_Book::where('book_id',$book_id)->count();
+        //dd($book_count);
+
         //$author->books;
 //        dd($author->books);
 //        $coauthoredbooks = Author::findOrFail($author->books[0]->id)->get();
-        return view('authors.show', compact('author' ));
+
+        return view('authors.show', compact('author','book_count'));
     }
 
     /**

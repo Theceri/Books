@@ -31,7 +31,7 @@
 
 
 
-    @if(count($book->recommenders) > 0 )
+    @if(count($book->recommenders) > 1 )
 
         {{$book->title}} also has recommendations from
 

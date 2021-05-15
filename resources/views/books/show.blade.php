@@ -6,7 +6,10 @@
 
 <h1> {{$book->title}} </h1>
 
-<h2>By: <a href="{{ url('authors', [$book->authors[0]->name_slug]) }}"> {{$book->authors[0]->name}} </a> </h2>
+<h2>By: 
+@foreach($book->authors as $key=>$value)
+<a href="{{ url('authors', [$value->name_slug]) }}"> <h2>{{$value->name}}</h2> </a> </h2>
+@endforeach
 
 <p> {{$book->description}} </p>
 
@@ -28,6 +31,8 @@
 
 @endif
 
+        <h2> More books by {{ $all_author }} </h2>
+
         @foreach($coauthoredbooks as $coauthoredbook)
 
             @if($coauthoredbook->title !== $book->title && count($coauthoredbook->authors) == 1)
@@ -35,10 +40,10 @@
                     $count=0;
                 @endphp
                 @if($count == 0)
-                    <h2> More books by {{ $book->authors[0]->name }} </h2>
-                    <ul>
+                    
+                    
                 @endif
-
+                <ul>
                 <li><a href="{{ url('books', [$coauthoredbook->title_slug]) }}">{{ $coauthoredbook->title }}</a></li>
                 @if(count($coauthoredbook->recommenders) > 0)
                     Recommended by
